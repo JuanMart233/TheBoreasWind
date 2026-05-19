@@ -42,3 +42,10 @@ class UsuarioModel:
         cursor.execute("UPDATE usuario SET password=%s WHERE email=%s", (nueva_password, email))
         conn.commit()
         conn.close()
+
+    def guardar_nivel(self, email, nivel):
+        conn = self.db.get_connection()
+        cursor = conn.cursor()
+        cursor.execute("UPDATE usuario SET nivel=%s WHERE email=%s", (nivel, email))
+        conn.commit()
+        conn.close()

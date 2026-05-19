@@ -100,3 +100,6 @@ class AuthController:
         self.model.actualizar_password(email, hashed)
         self._codigos.pop(email, None)
         return True, "Contraseña actualizada correctamente."
+
+    def guardar_nivel(self, email, nivel):
+        self.model.guardar_nivel(email, nivel)

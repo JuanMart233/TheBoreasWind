@@ -10,7 +10,7 @@ def LoginView(page: ft.Page, auth_controller, on_login):
         page.update()
     
     AdoDeidad = ft.Image(
-        src="genshin-impact-genshin.gif",
+        src="columbina.gif",
         height=150,
         border_radius=120,
     )
@@ -86,7 +86,7 @@ def LoginView(page: ft.Page, auth_controller, on_login):
     login_form = ft.Column(
         controls=[
             ft.Icon(ft.Icons.LOCK_PERSON, size=80, color=ft.Colors.BLUE_400),
-            ft.Text("Acceso al sistema", size=28, weight=ft.FontWeight.BOLD),
+            ft.Text("Bienvenido a BoreasWind", size=28, weight=ft.FontWeight.BOLD, color=ft.Colors.RED_400),
             AdoDeidad,
             email_input,
             password_input,
@@ -95,11 +95,15 @@ def LoginView(page: ft.Page, auth_controller, on_login):
                 "Iniciar Sesión",
                 on_click=login_click,
                 width=200,
-                bgcolor=ft.Colors.BLUE_400,
-                color="white",
+                bgcolor=ft.Colors.BLUE_600,
+                color="black",
             ),
-            ft.TextButton("¿No tienes cuenta? Crea una", on_click=lambda e: toggle_form(e)),
-            ft.TextButton("¿Olvidaste tu contraseña?", on_click=lambda e: ir_recuperar(e)),
+            ft.TextButton( "¿No tienes cuenta? Crea una",
+                on_click=lambda e: toggle_form(e),
+                style=ft.ButtonStyle(color="#003366", bgcolor=ft.Colors.BLUE_600)),
+            ft.TextButton("¿Olvidaste tu contraseña?",
+                on_click=lambda e: ir_recuperar(e),
+                style=ft.ButtonStyle(color="#003366", bgcolor=ft.Colors.BLUE_600)),
         ],
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         alignment=ft.MainAxisAlignment.CENTER,
@@ -120,25 +124,35 @@ def LoginView(page: ft.Page, auth_controller, on_login):
         page.add(RecuperarView(page, auth_controller, on_volver=volver))
         page.update()
 
-    return ft.Stack(
-        controls=[
-            ft.Image(
-                src="paisaje.webp",
-                width=page.width,
-                height=page.height,
-                fit="cover",
-            ),
-            ft.Container(
-                content=ft.Column(
-                    controls=[login_form, register_form],
-                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                    alignment=ft.MainAxisAlignment.CENTER,
-                ),
-                alignment=ft.Alignment(0, 0),
-                width=page.width,
-                height=page.height,
-            ),
-        ],
-        width=page.width,
-        height=page.height,
+    w = page.width or page.window.width or 800
+    h = page.height or page.window.height or 600
+
+    bg_image = ft.Image(src="fondito.jpeg", width=w, height=h, fit="cover")
+    bg_overlay = ft.Container(width=w, height=h, bgcolor=ft.Colors.with_opacity(0.5, "#000000"))
+    fg_container = ft.Container(
+        content=ft.Column(
+            controls=[login_form, register_form],
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            alignment=ft.MainAxisAlignment.CENTER,
+        ),
+        alignment=ft.Alignment(0, 0),
+        width=w,
+        height=h,
     )
+    stack = ft.Stack(controls=[bg_image, bg_overlay, fg_container], width=w, height=h)
+
+    def on_resize(e):
+        nw = page.width or page.window.width
+        nh = page.height or page.window.height
+        bg_image.width = nw
+        bg_image.height = nh
+        bg_overlay.width = nw
+        bg_overlay.height = nh
+        fg_container.width = nw
+        fg_container.height = nh
+        stack.width = nw
+        stack.height = nh
+        page.update()
+
+    page.on_resized = on_resize
+    return stack
