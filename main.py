@@ -21,7 +21,7 @@ def start(page: ft.Page):
     def show_nivel(user, nivel):
         auth_ctrl.guardar_nivel(user["email"], nivel)
         page.controls.clear()
-        page.add(ft.Text(f"Nivel seleccionado: {nivel}", color="white"))
+        page.add(ft.Text(f"¡Bienvenido, {user['nombre']}! Nivel: {nivel}", color="#e8d5a3", size=22))
         page.update()
 
     def on_login(user):
@@ -29,7 +29,7 @@ def start(page: ft.Page):
         if not user.get("nivel"):
             page.add(NivelView(page, user, on_nivel=show_nivel))
         else:
-            page.add(ft.Text(f"Bienvenido de nuevo, {user['nombre']}", color="white"))
+            page.add(ft.Text(f"Bienvenido de nuevo, {user['nombre']}", color="#e8d5a3", size=22))
         page.update()
 
     def show_login():
