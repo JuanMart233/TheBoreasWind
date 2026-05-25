@@ -5,6 +5,7 @@ import flet as ft
 from controllers.UserController import AuthController
 from views.LoginView import LoginView
 from views.Nivel import NivelView
+from views.base import BaseView
 
 def start(page: ft.Page):
     page.padding = 0
@@ -18,18 +19,22 @@ def start(page: ft.Page):
         page.add(ft.Text(f"Error BD: {e}", color=ft.Colors.RED))
         return
 
+    def show_base(user):
+        page.controls.clear()
+        page.add(BaseView(page, user, auth_ctrl, on_logout=show_login, on_switch_account=show_login))
+        page.update()
+
     def show_nivel(user, nivel):
         auth_ctrl.guardar_nivel(user["email"], nivel)
-        page.controls.clear()
-        page.add(ft.Text(f"¡Bienvenido, {user['nombre']}! Nivel: {nivel}", color="#e8d5a3", size=22))
-        page.update()
+        user["nivel"] = nivel
+        show_base(user)
 
     def on_login(user):
         page.controls.clear()
         if not user.get("nivel"):
             page.add(NivelView(page, user, on_nivel=show_nivel))
         else:
-            page.add(ft.Text(f"Bienvenido de nuevo, {user['nombre']}", color="#e8d5a3", size=22))
+            show_base(user)
         page.update()
 
     def show_login():

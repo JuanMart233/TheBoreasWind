@@ -1,8 +1,8 @@
 import flet as ft
-from src.views.nivelprincipiante import NivelPrincipianteView
-from src.views.nivelexperimentado import NivelExperimentadoView
-from src.views.nivelexperto import NivelExpertoView
-from src.views.TestView import TestView
+from views.nivelprincipiante import NivelPrincipianteView
+from views.nivelexperimentado import NivelExperimentadoView
+from views.nivelexperto import NivelExpertoView
+from views.TestView import TestView
 
 def NivelView(page: ft.Page, user, on_nivel):
     COLORES = {

@@ -1,5 +1,5 @@
 import flet as ft
-from src.views.RecuperarView import RecuperarView
+from views.RecuperarView import RecuperarView
 
 def LoginView(page: ft.Page, auth_controller, on_login):
     error_text = ft.Text("", color=ft.Colors.RED_400, size=13)

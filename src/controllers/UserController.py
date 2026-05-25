@@ -103,3 +103,9 @@ class AuthController:
 
     def guardar_nivel(self, email, nivel):
         self.model.guardar_nivel(email, nivel)
+
+    def actualizar_perfil(self, email, nombre, foto):
+        if not nombre or not nombre.strip():
+            return False, "El nombre no puede estar vacío."
+        self.model.actualizar_perfil(email, nombre.strip(), foto)
+        return True, "Perfil actualizado correctamente."

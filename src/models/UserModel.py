@@ -49,3 +49,10 @@ class UsuarioModel:
         cursor.execute("UPDATE usuario SET nivel=%s WHERE email=%s", (nivel, email))
         conn.commit()
         conn.close()
+
+    def actualizar_perfil(self, email, nombre, foto):
+        conn = self.db.get_connection()
+        cursor = conn.cursor()
+        cursor.execute("UPDATE usuario SET nombre=%s, foto=%s WHERE email=%s", (nombre, foto, email))
+        conn.commit()
+        conn.close()
