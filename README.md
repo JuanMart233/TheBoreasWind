@@ -16,6 +16,9 @@ Integrante 1
 3. Correo electrónico: 23308060610229@cetis61.edu.mx
 4. Especialidad: Programación
 5. Institución: CETis 61
+<img width="370" height="300" alt="JuanFoto" src="https://github.com/user-attachments/assets/6aeea10b-da4f-49f3-867a-2aab4ff8d014" />
+
+
 
 Integrante 2
 1. Nombre completo: Mireles Méndez Yesenia
