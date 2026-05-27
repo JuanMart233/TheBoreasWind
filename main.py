@@ -1,5 +1,7 @@
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
+_root = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(_root, "src"))
+sys.path.insert(0, _root)
 
 import flet as ft
 from controllers.UserController import AuthController
