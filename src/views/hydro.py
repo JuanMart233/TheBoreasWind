@@ -1,28 +1,26 @@
 import flet as ft
+from views.PersonajeDetalle import PersonajeDetalle
+
+PERSONAJES = [
+    {"nombre": "Personaje 1",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 2",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 3",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 4",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 5",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 6",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 7",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 8",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 9",  "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 10", "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 11", "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 12", "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 13", "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 14", "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 15", "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+    {"nombre": "Personaje 16", "imagen": "", "region": "text", "elemento": "Hydro", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+]
 
 
 def HydroView(page: ft.Page, user: dict, on_volver=None):
-    def volver(e):
-        if on_volver:
-            on_volver()
-
-    return ft.Column(
-        spacing=0,
-        expand=True,
-        controls=[
-            ft.Container(
-                bgcolor="#12002e",
-                padding=ft.padding.symmetric(horizontal=16, vertical=10),
-                content=ft.Row(controls=[
-                    ft.IconButton(ft.Icons.ARROW_BACK, icon_color="#c084fc", on_click=volver),
-                    ft.Text("Hydro", size=18, weight=ft.FontWeight.BOLD, color="#38bdf8"),
-                ], spacing=8),
-            ),
-            ft.Container(
-                expand=True,
-                bgcolor="#0d001f",
-                alignment=ft.Alignment(0, 0),
-                content=ft.Text("💧 Guía de Hydro — Próximamente", size=18, color="#38bdf8"),
-            ),
-        ],
-    )
+    from views.pyros import _ElementoView
+    return _ElementoView(page, user, on_volver, "Hydro", "#38bdf8", PERSONAJES)
