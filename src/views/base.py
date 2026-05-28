@@ -59,7 +59,7 @@ def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account)
 
     # --- contenidos de cada pantalla ---
     inicio_content = _InicioContent(user, on_logout, on_switch_account, avatar_drawer)
-    guias_content  = GuiasView(user)
+    guias_content  = GuiasView(page, user)
     perfil_content = PerfilView(page, user, auth_ctrl, on_logout, on_switch_account, avatar_mini, avatar_mini_foto, avatar_mini_letra, on_foto_actualizada)
 
     pantallas = {

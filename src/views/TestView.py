@@ -234,12 +234,26 @@ def TestView(page: ft.Page, user, on_resultado):
 
     cargar_pregunta()
 
+    w = page.window.width or 800
+    h = page.window.height or 600
+
+    bg = ft.Image(src="fondito.jpeg", fit="cover", width=w, height=h)
+    overlay = ft.Container(bgcolor=ft.Colors.with_opacity(0.78, "#0a0a1a"), width=w, height=h)
+
+    def on_resize(e):
+        nw = page.window.width or 800
+        nh = page.window.height or 600
+        bg.width, bg.height = nw, nh
+        overlay.width, overlay.height = nw, nh
+        page.update()
+    page.on_resized = on_resize
+
     return ft.Container(
         expand=True,
         content=ft.Stack(
             controls=[
-                ft.Image(src="fondito.jpeg", fit="cover", expand=True),
-                ft.Container(expand=True, bgcolor=ft.Colors.with_opacity(0.78, "#0a0a1a")),
+                bg,
+                overlay,
                 ft.Container(
                     expand=True,
                     alignment=ft.Alignment(0, 0),
