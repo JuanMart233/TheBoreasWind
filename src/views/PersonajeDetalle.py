@@ -78,7 +78,7 @@ def PersonajeDetalle(page: ft.Page, personaje: dict, on_volver):
                 controls=[
                     ft.Text(p.get("nombre", ""), size=22, weight=ft.FontWeight.BOLD, color="#e9d5ff"),
                     ft.Row(spacing=8, controls=[
-                        ft.Text(f"🗺 {p.get('region', 'text')}", size=12, color="#a0c4ff"),
+                        ft.Text(f"🗺 {p.get('region', 'text')}  rol: {p.get('rol', '')}", size=12, color="#a0c4ff"),
                         ft.Text(f"✦ {p.get('elemento', 'text')}", size=12, color="#c084fc"),
                     ]),
                 ],
@@ -129,20 +129,22 @@ def PersonajeDetalle(page: ft.Page, personaje: dict, on_volver):
     armas4_imgs = fila_imgs(p.get("armas4", ["", "", ""]))
 
     # --- Extra 3 imágenes con texto ---
-    extra3 = p.get("extra3", [("", "text")] * 3)
-    extra3_row = ft.Row(
-        spacing=10,
-        alignment=ft.MainAxisAlignment.CENTER,
-        controls=[img_label(s, t) for s, t in extra3],
-    )
+    extra3 = p.get("extra3", [])
+    if extra3:
+        extra3_row = ft.Row(
+            spacing=10,
+            alignment=ft.MainAxisAlignment.CENTER,
+            controls=[img_label(s, t) for s, t in extra3],
+        )
 
     # --- Extra 2 imágenes con texto ---
-    extra2 = p.get("extra2", [("", "text")] * 2)
-    extra2_row = ft.Row(
-        spacing=10,
-        alignment=ft.MainAxisAlignment.CENTER,
-        controls=[img_label(s, t) for s, t in extra2],
-    )
+    extra2 = p.get("extra2", [])
+    if extra2:
+        extra2_row = ft.Row(
+            spacing=10,
+            alignment=ft.MainAxisAlignment.CENTER,
+            controls=[img_label(s, t) for s, t in extra2],
+        )
 
     contenido = ft.Column(
         scroll=ft.ScrollMode.AUTO,
@@ -163,8 +165,8 @@ def PersonajeDetalle(page: ft.Page, personaje: dict, on_volver):
             ),
             seccion("Armas 5 estrellas ⭐", armas5_imgs),
             seccion("Armas 4 estrellas ⭐", armas4_imgs),
-            seccion("text", extra3_row),
-            seccion("text", extra2_row),
+            *([seccion("text", extra3_row)] if extra3 else []),
+            *([seccion("text", extra2_row)] if extra2 else []),
             ft.Container(height=20),
         ],
     )
