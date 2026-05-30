@@ -2,7 +2,7 @@ import flet as ft
 from views.PersonajeDetalle import PersonajeDetalle
 
 PERSONAJES = [
-    {"nombre": "Personaje 1",  "imagen": "", "region": "text", "elemento": "Anemo", "rol": "text", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""]},
+    {"nombre": "Jean",  "imagen": "", "region": "Mondstadt", "elemento": "Anemo", "rol": "Healer", "reacciones": "Torbellinos", "talentos": "Habilidad Definitiva > Habilidad Elemental > Ataque Básico ", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""]},
     {"nombre": "Personaje 2",  "imagen": "", "region": "text", "elemento": "Anemo", "rol": "text", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""]},
     {"nombre": "Personaje 3",  "imagen": "", "region": "text", "elemento": "Anemo", "rol": "text", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""]},
     {"nombre": "Personaje 4",  "imagen": "", "region": "text", "elemento": "Anemo", "rol": "text", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""]},

@@ -20,7 +20,8 @@ PERSONAJES = [
     {"nombre": "Personaje 16", "imagen": "", "region": "text", "elemento": "Cryo", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
     {"nombre": "Personaje 17", "imagen": "", "region": "text", "elemento": "Cryo", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
     {"nombre": "Personaje 18", "imagen": "", "region": "text", "elemento": "Cryo", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
-]
+    {"nombre": "El muerto", "imagen": "CapitanoF.jpg", "region": "Snezhnaya", "elemento": "Cryo", "reacciones": "text", "talentos": "text", "estadisticas": "text", "artefactos": ["","",""], "equipos": [["","","",""],["","","",""],["","","",""]], "armas5": ["","",""], "armas4": ["","",""], "extra3": [("","text"),("","text"),("","text")], "extra2": [("","text"),("","text")]},
+ ]   
 
 
 def CryoView(page: ft.Page, user: dict, on_volver=None):
