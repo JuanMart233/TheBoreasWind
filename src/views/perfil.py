@@ -1,4 +1,5 @@
 import flet as ft
+from views.MisPublicaciones import MisPublicacionesView
 
 
 def _censurar_email(email):
@@ -15,6 +16,9 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
 
     rutaFoto = {"value": user.get("foto") or ""}
     codigoMandado = {"value": False}
+    
+    # Container para la vista de mis publicaciones
+    mis_publicaciones_container = ft.Container(visible=False, expand=True)
 
     # --- avatar ---
     fotoImg = ft.Image(
@@ -64,6 +68,12 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
                 ),
             ),
             ft.Container(height=4),
+            ft.ElevatedButton(
+                "Mis Publicaciones",
+                icon=ft.Icons.ARTICLE,
+                bgcolor="#3b0764", color="#e9d5ff", width=280,
+                on_click=lambda e: mostrar_mis_publicaciones(),
+            ),
             ft.ElevatedButton(
                 "Editar perfil",
                 icon=ft.Icons.EDIT,
@@ -283,10 +293,31 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
     )
 
     # ===================== NAVEGACIÓN =====================
+    def mostrar_mis_publicaciones():
+        mis_publicaciones_container.content = MisPublicacionesView(
+            page, user, lambda: volver_a_perfil()
+        )
+        mis_publicaciones_container.visible = True
+        panelInicio.visible = False
+        panelEditar.visible = False
+        panelContra.visible = False
+        mis_publicaciones_container.update()
+        panelInicio.update()
+        panelEditar.update()
+        panelContra.update()
+    
+    def volver_a_perfil():
+        mis_publicaciones_container.visible = False
+        panelInicio.visible = True
+        mis_publicaciones_container.update()
+        panelInicio.update()
+    
     def mostrarPanel(cual):
+        mis_publicaciones_container.visible = False
         panelInicio.visible = cual == "inicio"
         panelEditar.visible = cual == "editar"
         panelContra.visible = cual == "contra"
+        mis_publicaciones_container.update()
         panelInicio.update()
         panelEditar.update()
         panelContra.update()
@@ -306,11 +337,17 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
     areaContenido = ft.Container(
         expand=True,
         bgcolor="#0d001f",
-        content=ft.Column(
-            scroll=ft.ScrollMode.AUTO,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=0,
-            controls=[panelInicio, panelEditar, panelContra],
+        content=ft.Stack(
+            expand=True,
+            controls=[
+                ft.Column(
+                    scroll=ft.ScrollMode.AUTO,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    spacing=0,
+                    controls=[panelInicio, panelEditar, panelContra],
+                ),
+                mis_publicaciones_container,
+            ]
         ),
     )
 
