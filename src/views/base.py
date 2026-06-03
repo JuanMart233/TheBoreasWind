@@ -125,7 +125,7 @@ def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account)
         _actualizar_navbar(destino)
         page.update()
 
-    #navbar
+    #navbar y botones
     def _btn(icon, label, key):
         col = ft.Column(
             controls=[

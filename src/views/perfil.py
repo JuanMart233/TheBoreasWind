@@ -20,7 +20,7 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
     # Container para la vista de mis publicaciones
     mis_publicaciones_container = ft.Container(visible=False, expand=True)
 
-    # --- avatar ---
+    # avatar
     fotoImg = ft.Image(
         src=rutaFoto["value"] if rutaFoto["value"] else None,
         width=90, height=90, border_radius=45,
@@ -63,7 +63,7 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
         content=ft.Stack(controls=[fotoImgEditar, letraInicialEditar]),
     )
 
-    # ===================== PANEL INICIO =====================
+    #PANEL INICIO 
     panelInicio = ft.Column(
         visible=True,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -121,7 +121,7 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
         ],
     )
 
-    # ===================== PANEL EDITAR =====================
+    # PANEL EDITAR 
     cajaNombre = ft.TextField(
         value=user.get("nombre", ""),
         label="Nombre",
@@ -208,7 +208,7 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
         ],
     )
 
-    # ===================== PANEL CONTRASEÑA =====================
+    # PANEL CONTRASEÑA  
     cajaCodigoEmail = ft.TextField(
         label="Código de 6 dígitos",
         prefix_icon=ft.Icons.KEY,
@@ -311,7 +311,7 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
         ],
     )
 
-    # ===================== NAVEGACIÓN =====================
+    # NAVEGACIÓN 
     def mostrar_mis_publicaciones():
         mis_publicaciones_container.content = MisPublicacionesView(
             page, user, lambda: volver_a_perfil()
