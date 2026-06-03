@@ -44,6 +44,25 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
         size=20, weight=ft.FontWeight.BOLD, color="#e9d5ff",
     )
 
+    fotoImgEditar = ft.Image(
+        src=rutaFoto["value"] if rutaFoto["value"] else None,
+        width=90, height=90, border_radius=45,
+        fit="cover",
+        visible=bool(rutaFoto["value"]),
+    )
+    letraInicialEditar = ft.Text(
+        user.get("nombre", "?")[0].upper(),
+        size=38, weight=ft.FontWeight.BOLD,
+        color="white", text_align=ft.TextAlign.CENTER,
+        visible=not bool(rutaFoto["value"]),
+    )
+    circuloAvatarEditar = ft.Container(
+        width=90, height=90, border_radius=45,
+        bgcolor="#7c3aed",
+        alignment=ft.Alignment(0, 0),
+        content=ft.Stack(controls=[fotoImgEditar, letraInicialEditar]),
+    )
+
     # ===================== PANEL INICIO =====================
     panelInicio = ft.Column(
         visible=True,

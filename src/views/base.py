@@ -1,6 +1,7 @@
 import flet as ft
 from models.PublicacionModel import PublicacionModel
 from views.PublicacionDetalle import PublicacionDetalleView
+from views.CrearPublicacion import CrearPublicacionView
 
 
 def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account):
@@ -61,19 +62,52 @@ def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account)
 
     #pantalla de detalle de publicación
     detalle_publicacion_container = ft.Container(visible=False, expand=True)
+    crear_publicacion_container = ft.Container(visible=False, expand=True)
 
     def ir_a_publicacion(pub_id):
         detalle_publicacion_container.content = PublicacionDetalleView(
             page, user, pub_id, lambda: mostrar("inicio")
         )
         detalle_publicacion_container.visible = True
+        crear_publicacion_container.visible = False
         inicio_content.visible = False
         guias_content.visible = False
         perfil_content.visible = False
         page.update()
 
+    def volver_inicio_y_actualizar():
+        print("volver_inicio_y_actualizar called")
+        # Primero ocultar la pantalla de crear
+        crear_publicacion_container.visible = False
+        # Luego cargar las publicaciones (antes de hacer visible)
+        inicio_content.cargar_publicaciones()
+        # Ahora hacer visible el contenido
+        detalle_publicacion_container.visible = False
+        inicio_content.visible = True
+        # Actualizar la página
+        page.update()
+
+    def abrir_crear_publicacion(e):
+        try:
+            print("abrir_crear_publicacion called")
+            crear_publicacion_container.content = CrearPublicacionView(
+                page,
+                user,
+                lambda: mostrar("inicio"),
+                volver_inicio_y_actualizar
+            )
+            crear_publicacion_container.visible = True
+            detalle_publicacion_container.visible = False
+            inicio_content.visible = False
+            guias_content.visible = False
+            perfil_content.visible = False
+            page.update()
+        except Exception as ex:
+            print(f"Error al abrir crear publicacion: {ex}")
+            page.update()
+
     #contenidos de cada pantalla
-    inicio_content = _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, lambda dest: mostrar(dest), ir_a_publicacion)
+    inicio_content = _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, lambda dest: mostrar(dest), ir_a_publicacion, abrir_crear_publicacion)
     guias_content  = GuiasView(page, user)
     perfil_content = PerfilView(page, user, auth_ctrl, on_logout, on_switch_account, avatar_mini, avatar_mini_foto, avatar_mini_letra, on_foto_actualizada)
 
@@ -85,6 +119,7 @@ def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account)
 
     def mostrar(destino):
         detalle_publicacion_container.visible = False
+        crear_publicacion_container.visible = False
         for key, ctrl in pantallas.items():
             ctrl.visible = (key == destino)
         _actualizar_navbar(destino)
@@ -154,14 +189,14 @@ def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account)
         controls=[
             ft.Stack(
                 expand=True,
-                controls=list(pantallas.values()) + [detalle_publicacion_container],
+                controls=list(pantallas.values()) + [detalle_publicacion_container, crear_publicacion_container],
             ),
             navbar,
         ],
     )
 
 
-def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, mostrar_pantalla, ir_a_publicacion):
+def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, mostrar_pantalla, ir_a_publicacion, on_crear_publicacion):
     pub_model = PublicacionModel()
     
     feed_publicaciones = ft.Column(spacing=12, scroll=ft.ScrollMode.AUTO, expand=True)
@@ -244,26 +279,47 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
     
     def abrir_dialog_publicar(e):
         try:
+            print("abrir_dialog_publicar called")
+
+            # show a quick snack to confirm click (will be replaced by dialog)
+            try:
+                page.snack_bar = ft.SnackBar(ft.Text("Abrir diálogo..."))
+                page.snack_bar.open = True
+            except Exception:
+                pass
+
+            # Reset inputs (don't call .update() on dialog controls before they're added to the page)
             caja_contenido.value = ""
             caja_url_imagen.value = ""
             imagen_seleccionada["url"] = None
             preview_imagen.visible = False
             mensaje_publicar.value = ""
+
+            # Attach and open the dialog first, then update the page so controls are present
             page.dialog = dialog_publicar
             dialog_publicar.open = True
             page.update()
         except Exception as ex:
             print(f"Error al abrir dialog: {ex}")
+            # Try to set an error message (safe assignment without calling .update() on the control)
+            try:
+                mensaje_publicar.value = f"Error al abrir: {ex}"
+            except:
+                pass
+            page.update()
     
     def cerrar_dialog():
         dialog_publicar.open = False
         page.update()
     
     def cargar_publicaciones():
+        print(f"cargar_publicaciones() called, obtener_publicaciones...")
         feed_publicaciones.controls.clear()
         try:
             publicaciones = pub_model.obtener_publicaciones()
-        except:
+            print(f"cargar_publicaciones() got {len(publicaciones) if publicaciones else 0} publications")
+        except Exception as e:
+            print(f"Error al obtener publicaciones: {e}")
             publicaciones = []
         
         if not publicaciones:
@@ -292,7 +348,7 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
                     width=40, height=40, border_radius=20,
                     bgcolor="#7c3aed",
                     content=avatar_content,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment(0, 0),
                 )
                 
                 # Controles
@@ -330,6 +386,7 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
                     content=ft.Column(spacing=12, controls=card_controls),
                 )
                 feed_publicaciones.controls.append(card_pub)
+        print(f"cargar_publicaciones() finished, feed_publicaciones has {len(feed_publicaciones.controls)} controls")
     
     def publicar_post():
         contenido = caja_contenido.value.strip()
@@ -345,10 +402,10 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
                 contenido,
                 imagen_seleccionada["url"]
             )
+            print(f"_InicioContent publicar_post: exito={exito}, pub_id={pub_id}")
             
             if exito:
                 cerrar_dialog()
-                feed_publicaciones.controls.clear()
                 cargar_publicaciones()
                 page.update()
             else:
@@ -430,7 +487,7 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
                             "📝 Publicar",
                             bgcolor="#7c3aed",
                             color="white",
-                            on_click=abrir_dialog_publicar,
+                            on_click=on_crear_publicacion,
                         ),
                     ],
                     alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
@@ -447,7 +504,7 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
     except:
         pass
     
-    return ft.Column(
+    inicio_col = ft.Column(
         spacing=0,
         expand=True,
         controls=[
@@ -460,3 +517,5 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
             ),
         ],
     )
+    inicio_col.cargar_publicaciones = cargar_publicaciones
+    return inicio_col
