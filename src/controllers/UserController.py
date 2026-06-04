@@ -54,6 +54,14 @@ class AuthController:
     def enviar_codigo(self, email):
         if not self.model.buscar_por_email(email):
             return False, "No existe una cuenta con ese correo."
+
+        mail_user = os.getenv("MAIL_USER")
+        mail_password = os.getenv("MAIL_PASSWORD")
+        if not mail_user or not mail_password:
+            return False, "Error de configuración de correo: revisa MAIL_USER y MAIL_PASSWORD."
+        mail_user = mail_user.strip()
+        mail_password = mail_password.strip()
+
         codigo = str(random.randint(100000, 999999))
         self._codigos[email] = codigo
         try:
@@ -62,7 +70,7 @@ class AuthController:
 
             msg = MIMEMultipart("related")
             msg["Subject"] = "Recuperación de contraseña - BoreasWind"
-            msg["From"] = os.getenv("MAIL_USER")
+            msg["From"] = mail_user
             msg["To"] = email
 
             html = f"""
@@ -81,12 +89,21 @@ class AuthController:
                     img.add_header("Content-ID", "<logo>")
                     msg.attach(img)
 
-            with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-                server.login(os.getenv("MAIL_USER"), os.getenv("MAIL_PASSWORD"))
-                server.sendmail(os.getenv("MAIL_USER"), email, msg.as_string())
+            try:
+                with smtplib.SMTP("smtp.gmail.com", 587, timeout=30) as server:
+                    server.ehlo()
+                    server.starttls()
+                    server.ehlo()
+                    server.login(mail_user, mail_password)
+                    server.sendmail(mail_user, email, msg.as_string())
+            except Exception:
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as server:
+                    server.login(mail_user, mail_password)
+                    server.sendmail(mail_user, email, msg.as_string())
+
             return True, "Código enviado a tu correo."
         except Exception as e:
-            return False, f"Error al enviar correo: {e}"
+            return False, f"Error al enviar correo: {e}. Revisa usuario, contraseña y acceso SMTP de Gmail."
 
     def verificar_codigo(self, email, codigo):
         if self._codigos.get(email) == codigo:
