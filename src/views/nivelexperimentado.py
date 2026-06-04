@@ -42,7 +42,7 @@ def NivelExperimentadoView(page: ft.Page, user, on_continuar):
                                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                 spacing=4,
                             ),
-                            padding=ft.padding.only(top=10),
+                            padding=ft.Padding.only(top=10),
                         ),
                         ft.Container(
                             content=ft.Image(src="lynea.gif", width=180, height=180),
@@ -71,8 +71,8 @@ def NivelExperimentadoView(page: ft.Page, user, on_continuar):
                             ),
                             bgcolor=ft.Colors.with_opacity(0.25, "#4a148c"),
                             border_radius=16,
-                            padding=ft.padding.symmetric(horizontal=30, vertical=18),
-                            border=ft.border.all(1, "#7b1fa2"),
+                            padding=ft.Padding.symmetric(horizontal=30, vertical=18),
+                            border=ft.Border.all(1, "#7b1fa2"),
                             width=420,
                         ),
                         ft.ElevatedButton(

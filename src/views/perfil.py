@@ -76,8 +76,8 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
             ft.Container(
                 bgcolor="#1e0a3c",
                 border_radius=10,
-                padding=ft.padding.symmetric(horizontal=20, vertical=10),
-                border=ft.border.all(1, "#4c1d95"),
+                padding=ft.Padding.symmetric(horizontal=20, vertical=10),
+                border=ft.Border.all(1, "#4c1d95"),
                 content=ft.Row(
                     controls=[
                         ft.Icon(ft.Icons.STAR, color="#a855f7", size=16),
@@ -343,7 +343,7 @@ def PerfilView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_accoun
 
     topbar = ft.Container(
         bgcolor="#12002e",
-        padding=ft.padding.symmetric(horizontal=16, vertical=10),
+        padding=ft.Padding.symmetric(horizontal=16, vertical=10),
         content=ft.Row(
             controls=[
                 ft.Icon(ft.Icons.PERSON, color="#c084fc"),

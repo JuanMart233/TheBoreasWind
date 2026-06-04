@@ -47,7 +47,7 @@ def _ElementoView(page, user, on_volver, titulo, color, personajes):
             width=100, height=120,
             border_radius=14,
             bgcolor="#1e0a3c",
-            border=ft.border.all(1, "#4c1d95"),
+            border=ft.Border.all(1, "#4c1d95"),
             ink=True,
             on_click=lambda e, per=p: abrir(per),
             content=ft.Column(
@@ -88,7 +88,7 @@ def _ElementoView(page, user, on_volver, titulo, color, personajes):
 
     topbar = ft.Container(
         bgcolor="#12002e",
-        padding=ft.padding.symmetric(horizontal=16, vertical=10),
+        padding=ft.Padding.symmetric(horizontal=16, vertical=10),
         content=ft.Row(controls=[
             ft.IconButton(ft.Icons.ARROW_BACK, icon_color="#c084fc",
                           on_click=lambda e: on_volver() if on_volver else None),

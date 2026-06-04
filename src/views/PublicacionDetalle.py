@@ -115,7 +115,7 @@ def PublicacionDetalleView(page: ft.Page, user: dict, pub_id: int, on_back):
 
     topbar = ft.Container(
         bgcolor="#12002e",
-        padding=ft.padding.symmetric(horizontal=16, vertical=10),
+        padding=ft.Padding.symmetric(horizontal=16, vertical=10),
         content=ft.Row(
             controls=[
                 ft.IconButton(icon=ft.Icons.ARROW_BACK, icon_color="#c084fc", on_click=lambda e: on_back()),

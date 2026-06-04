@@ -140,7 +140,7 @@ def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account)
             content=col,
             alignment=ft.Alignment(0, 0),
             on_click=lambda e, k=key: mostrar(k),
-            padding=ft.padding.symmetric(vertical=8),
+            padding=ft.Padding.symmetric(vertical=8),
             data=key,
         )
 
@@ -153,7 +153,7 @@ def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account)
         ),
         alignment=ft.Alignment(0, 0),
         on_click=lambda e: mostrar("perfil"),
-        padding=ft.padding.symmetric(vertical=8),
+        padding=ft.Padding.symmetric(vertical=8),
         ink=True,
     )
 
@@ -173,7 +173,7 @@ def BaseView(page: ft.Page, user: dict, auth_ctrl, on_logout, on_switch_account)
 
     navbar = ft.Container(
         bgcolor="#12002e",
-        border=ft.border.only(top=ft.BorderSide(1, "#2d1b4e")),
+        border=ft.Border.only(top=ft.BorderSide(1, "#2d1b4e")),
         content=ft.Row(
             controls=[btn_inicio, btn_guias, perfil_btn],
             spacing=0,
@@ -423,12 +423,12 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
         width=220,
         bgcolor="#1e0a3c",
         border_radius=ft.BorderRadius(0, 0, 12, 0),
-        padding=ft.padding.only(top=16, bottom=16),
+        padding=ft.Padding.only(top=16, bottom=16),
         content=ft.Column(
             spacing=0,
             controls=[
                 ft.Container(
-                    padding=ft.padding.symmetric(horizontal=16, vertical=12),
+                    padding=ft.Padding.symmetric(horizontal=16, vertical=12),
                     content=ft.Row(
                         spacing=12,
                         controls=[
@@ -464,7 +464,7 @@ def _InicioContent(page, user, on_logout, on_switch_account, avatar_drawer, most
 
     topbar = ft.Container(
         bgcolor="#12002e",
-        padding=ft.padding.symmetric(horizontal=16, vertical=10),
+        padding=ft.Padding.symmetric(horizontal=16, vertical=10),
         content=ft.Row(
             controls=[
                 ft.IconButton(icon=ft.Icons.MENU, icon_color="#c084fc", on_click=toggle_drawer),

@@ -22,8 +22,8 @@ def seccion(titulo, contenido):
         width=420,
         bgcolor="#1a0a3c",
         border_radius=12,
-        border=ft.border.all(1, "#4c1d95"),
-        padding=ft.padding.symmetric(horizontal=14, vertical=10),
+        border=ft.Border.all(1, "#4c1d95"),
+        padding=ft.Padding.symmetric(horizontal=14, vertical=10),
         content=ft.Column(
             spacing=8,
             controls=[
@@ -113,7 +113,7 @@ def PersonajeDetalle(page: ft.Page, personaje: dict, on_volver):
         height=260,
         bgcolor="#120030",
         border_radius=10,
-        border=ft.border.all(1, "#4c1d95"),
+        border=ft.Border.all(1, "#4c1d95"),
         padding=10,
         content=ft.Column(
             scroll=ft.ScrollMode.AUTO,
@@ -177,7 +177,7 @@ def PersonajeDetalle(page: ft.Page, personaje: dict, on_volver):
         controls=[
             ft.Container(
                 bgcolor="#12002e",
-                padding=ft.padding.symmetric(horizontal=16, vertical=10),
+                padding=ft.Padding.symmetric(horizontal=16, vertical=10),
                 content=ft.Row(controls=[
                     ft.IconButton(ft.Icons.ARROW_BACK, icon_color="#c084fc",
                                   on_click=lambda e: on_volver()),
@@ -188,7 +188,7 @@ def PersonajeDetalle(page: ft.Page, personaje: dict, on_volver):
             ft.Container(
                 expand=True,
                 bgcolor="#0d001f",
-                padding=ft.padding.symmetric(horizontal=16, vertical=12),
+                padding=ft.Padding.symmetric(horizontal=16, vertical=12),
                 content=contenido,
             ),
         ],

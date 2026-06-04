@@ -36,7 +36,7 @@ def GuiasView(page: ft.Page, user: dict, on_volver_guias=None):
             height=120,
             border_radius=14,
             bgcolor="#1e0a3c",
-            border=ft.border.all(1, "#4c1d95"),
+            border=ft.Border.all(1, "#4c1d95"),
             ink=True,
             on_click=lambda e, m=el["modulo"], v=el["vista"]: abrir_elemento(m, v),
             content=ft.Column(
@@ -52,7 +52,7 @@ def GuiasView(page: ft.Page, user: dict, on_volver_guias=None):
 
     topbar = ft.Container(
         bgcolor="#12002e",
-        padding=ft.padding.symmetric(horizontal=16, vertical=10),
+        padding=ft.Padding.symmetric(horizontal=16, vertical=10),
         content=ft.Row(
             controls=[
                 ft.Icon(ft.Icons.MENU_BOOK, color="#c084fc"),

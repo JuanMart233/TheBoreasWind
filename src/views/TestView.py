@@ -196,8 +196,8 @@ def TestView(page: ft.Page, user, on_resultado):
                 ),
                 bgcolor=ft.Colors.with_opacity(0.25, "#0d0d1f"),
                 border_radius=14,
-                padding=ft.padding.symmetric(horizontal=40, vertical=20),
-                border=ft.border.all(1, info["color"]),
+                padding=ft.Padding.symmetric(horizontal=40, vertical=20),
+                border=ft.Border.all(1, info["color"]),
                 width=380,
             ),
             ft.ElevatedButton(
