@@ -1,5 +1,6 @@
 README.md
 pyproject.toml
+src/main.py
 src/BoreasWind.egg-info/PKG-INFO
 src/BoreasWind.egg-info/SOURCES.txt
 src/BoreasWind.egg-info/dependency_links.txt
