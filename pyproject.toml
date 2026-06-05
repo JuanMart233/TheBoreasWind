@@ -1,0 +1,13 @@
+[project]
+name = "BoreasWind"
+version = "0.1.0"
+description = "BoreasWind application"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "bcrypt>=5.0.0",
+    "flet>=0.82.2",
+    "mysql-connector-python>=9.6.0",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.2",
+]
