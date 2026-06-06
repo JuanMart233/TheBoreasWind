@@ -1,4 +1,4 @@
-from Database.database import Database
+from database.database import Database
 
 class PublicacionModel:
     def __init__(self):
